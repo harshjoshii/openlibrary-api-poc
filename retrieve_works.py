@@ -41,6 +41,8 @@ class OutboundDBOperator(DBOperator):
                                 FROM
                                     dbo.work w
                                     INNER JOIN dbo.work_author_map wam ON wam.work_key = w.key
+                                WHERE
+                                    w.api_response_status IS NULL or w.api_response_status <> '200'
                                 GROUP BY
                                     w.key,
                                     w.title,
@@ -50,9 +52,7 @@ class OutboundDBOperator(DBOperator):
                                     w.latest_revision,
                                     w.first_publish_date,
                                     w.created,
-                                    w.last_modified
-                                WHERE
-                                	w.api_response_status <> '200'          
+                                    w.last_modified         
                                 """)
                 records = cursor.fetchall()
                 description = list(cursor.description)
