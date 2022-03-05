@@ -31,9 +31,17 @@ echo -ne "-----------------------------------\n\n"
 
 echo -ne "Initializing postgres container...\n"
 docker-compose up -d && \
-echo -ne " Done!\n"
 
-python3 main.py && \
+for i in {1..50}
+do
+    sleep 5s
+    if [ "$(docker ps -aq -f status=running -f name=postgres)" ]; then
+        echo -ne " Done!\n"
+        python3 main.py && \
+        break
+    fi
+done
+
 
 echo -ne "Press any key to continue...\n"
 read -n 1 -s
