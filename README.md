@@ -8,5 +8,5 @@ An API poc for the following request flows:
 
 How to execute the pipeline?
 * Make run.sh executable
-* Execute run.sh
+* Execute run.sh within a python virtual enviornment
 
